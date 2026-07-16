@@ -1,0 +1,8 @@
+@import url('../App.css');
+
+.main {
+    
+  background: var(--fondo);
+    margin: 5px 0 0 5px;
+    border-radius: var(---borde-radius);
+}

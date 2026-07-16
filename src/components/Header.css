@@ -1,0 +1,81 @@
+.header {
+    display: flex;
+    align-items: center;
+ height: 50px;
+    width: 100%;
+   
+    background-color: var(--color-primario);
+
+    padding-left: 10px;
+    padding-right: 10px;
+    
+    justify-content: space-between;
+    a{
+        text-decoration: none;
+        background-color: transparent;
+         font-size: 27px;
+         color: var(--color-texto);
+    }
+}
+
+.group_left {
+    display: flex;
+    width: 50%;
+    align-items: center;
+
+}
+.group-rigth{
+    
+      display: flex;
+     height: 70px;
+      justify-content: space-between;
+}
+
+.logo_container {
+    width: 200px;
+    margin-right: 40px;
+}
+
+.buscar {
+   
+    width: 30vw;
+    height: 30px;
+    border-radius: 15px;
+    padding: 15px;
+    border: 0;
+    overflow: hidden;
+
+}
+
+.buscar_container {
+
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    padding: 0px 5px 0px 10px;
+    border: #668ffe 2px solid;
+}
+
+.lupa {
+
+    border-left: #668ffe 2px solid;
+    height: 100%;
+    padding-left: 3px;
+    
+}
+
+.icon {
+    color: black;
+font-size: 27px;
+}
+
+
+
+#buscar-item:hover+.icon-buscar {
+    color: blanchedalmond;
+
+}
+button{
+    border: 0;
+    background-color: transparent;
+}

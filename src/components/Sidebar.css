@@ -1,0 +1,98 @@
+.sidebar {
+   
+    background-color:#F0EDE6;
+    color: var(--color-texto);
+    display: flex;
+    flex-direction: column;
+    width: 12vw;
+    transition: width 0.3s;
+    padding: 5px;
+    height: 100vh;
+}
+.sidebar > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    
+}
+.sidebar.collapsed {
+    width: 60px;
+}
+
+.sidebar link {
+    height: 50px;
+    border-radius: 5px;
+    display:  flex;
+    align-items: center;
+    gap: 10px;
+    background: transparent;
+    border: none;
+    color: #111;
+    padding: 10px 10px;
+    text-align: left;
+    width: auto;
+    cursor: pointer;
+    
+    transition: background 0.2s, color 0.2s;
+}
+.sidebar button span {
+    font-size: 1.2vw;
+}
+
+.sidebar button.selected {
+    background:#1976d2 ;
+    color: #e0e0e0;
+}
+
+.sidebar button:hover {
+    background: #1976d2;
+   
+}
+ 
+.menu-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+ 
+.menu-container {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+ 
+.menu-item .icon {
+  font-size: 25px;
+}
+.menu-item:hover {
+  background-color: var(--color-primario);
+  color: var(--fondo);
+}
+.menu-item.activo {
+  background-color: var(--color-primario);
+  color: var(--fondo);
+  border-left: 3px solid var(--acento);
+  padding-left: 11px; /* compensa el border-left para que no salte el layout */
+}
+@media screen and (max-width: 400px) {
+    .sidebar {
+             flex-direction: column; /* icono arriba, texto abajo */
+        align-items: center;
+        justify-content: center;
+    }
+    .sidebar button span {
+                display: block; /* asegúrate que el texto sea visible */
+        font-size: 3vw; /* opcional: ajusta tamaño para móvil */
+        margin-top: 4px;
+    }
+    
+}

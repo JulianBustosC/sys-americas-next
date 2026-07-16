@@ -1,0 +1,47 @@
+/* src/components/TablaModulo.module.css */
+.wrapper { padding: 1.5rem; }
+
+.header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; }
+.titulo { font-size: 20px; font-weight: 500; margin: 0; color: var(--color-texto); }
+.subtitulo { font-size: 13px; color: var(--color-texto); margin: 0; }
+
+.btnAgregar { padding: 8px 16px; border: 1px solid #ccc; border-radius: 8px; background: white; cursor: pointer; font-size: 14px; }
+.btnAgregar:hover { background: #f5f5f5; }
+
+.buscador { width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; margin-bottom: 1rem; }
+
+.tablaWrapper { border: 1px solid #eee; border-radius: 12px; overflow: hidden; }
+.tabla { width: 100%; border-collapse: collapse; font-size: 14px; }
+.tabla thead tr { background: #f9f9f9; }
+.tabla th { padding: 10px 16px; text-align: left; font-weight: 500; color: #161313; }
+.tabla td { padding: 12px 16px; border-top: 1px solid #cfcece; color: #161313;text-align: center; }
+.tabla tbody tr:hover { background: #fafafa; }
+
+.badge { font-size: 12px; padding: 3px 10px; border-radius: 8px; }
+.Activo   { background: #E1F5EE; color: #0F6E56; }
+.Inactivo { background: #FCEBEB; color: #A32D2D; }
+.Disponible { background: #E1F5EE; color: #0F6E56; }
+.Ocupada    { background: #FCEBEB; color: #A32D2D; }
+.Pendiente  { background: #FAEEDA; color: #854F0B; }
+
+.acciones { display: flex; gap: 8px; }
+.acciones button { background: none; border: none; cursor: pointer; font-size: 13px; color: #666; }
+.acciones button:hover { color: #333; }
+.btnEliminar:hover { color: #e53e3e !important; }
+
+.paginacion { display: flex; justify-content: space-between; align-items: center; margin-top: 1rem; font-size: 13px; color: #888; }
+.paginacion button { padding: 6px 14px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; margin-left: 8px; }
+.paginacion button:disabled { opacity: 0.4; cursor: not-allowed; }
+
+.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; z-index: 999; }
+.modal { background: white; border-radius: 12px; padding: 1.5rem; width: 100%; max-width: 440px; }
+.modalHeader { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; }
+.modalHeader h3 { margin: 0; font-size: 16px; font-weight: 500; }
+.modalHeader button { background: none; border: none; cursor: pointer; font-size: 18px; color: #888; }
+.modalBody { display: flex; flex-direction: column; gap: 12px; }
+.campo label { font-size: 13px; color: #666; display: block; margin-bottom: 4px; }
+.campo input, .campo select { width: 100%; box-sizing: border-box; padding: 8px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; }
+.campo input { color: #1976d2; }
+.modalFooter { display: flex; justify-content: flex-end; gap: 8px; margin-top: 1.25rem; }
+.modalFooter button { padding: 8px 16px; border: 1px solid #ddd; border-radius: 8px; background: white; cursor: pointer; font-size: 14px; }
+.btnGuardar { background: #1a1a1a !important; color: white !important; border-color: #1a1a1a !important; }
