@@ -12,27 +12,27 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
   const [form, setForm] = useState({})
   const [pagina, setPagina] = useState(1)
   const POR_PAGINA = 10
+  const token = localStorage.getItem('jwt') 
+    // Cargar datos del endpoint
+    useEffect(() => {
+   
 
-  // Cargar datos del endpoint
-  useEffect(() => {
-    const token = localStorage.getItem('jwt') // ajusta el nombre exacto de la key
-
-    fetch(`${apiurl}/${endpoint}`, {
-      headers: {
-        'Authorization': `Bearer ${token}`
-      }
-    })
-      .then(async r => {
-        const text = await r.text()
-        if (!r.ok) {
-          console.error(`Error ${r.status}:`, text)
-          throw new Error(`Error ${r.status}`)
+      fetch(`${apiurl}/${endpoint}`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
         }
-        return text ? JSON.parse(text) : null
       })
-      .then(setDatos)
-      .catch(err => console.error('Error al cargar datos:', err))
-  }, [endpoint])
+        .then(async r => {
+          const text = await r.text()
+          if (!r.ok) {
+            console.error(`Error ${r.status}:`, text)
+            throw new Error(`Error ${r.status}`)
+          }
+          return text ? JSON.parse(text) : null
+        })
+        .then(setDatos)
+        .catch(err => console.error('Error al cargar datos:', err))
+    }, [endpoint])
 
   // Filtrar por búsqueda
   const filtrados = datos.filter(item =>
@@ -68,7 +68,7 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
       : `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`
     await fetch(url, {
       method,
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
       body: JSON.stringify(form),
     })
 
@@ -82,32 +82,31 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
 
   async function guardar() {
-  const token = localStorage.getItem("jwt") // ajusta la key según como lo guardes
-  const url = `http://localhost:8080/${endpoint}/save`
+    // ajusta la key según como lo guardes
+    const url = `http://localhost:8080/${endpoint}/save`
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(form),
-  })
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+      },
+      body: JSON.stringify(form),
+    })
 
-  if (res.status === 401 || res.status === 403) {
-    console.error("No autorizado, token inválido o expirado")
-    // aquí podrías redirigir a login
-    return
+    if (res.status === 401 || res.status === 403) {
+      console.error("No autorizado, token inválido o expirado")
+      // aquí podrías redirigir a login
+      return
+    }
+
+    if (!res.ok) {
+      console.error("Error guardando:", await res.text() ? await res.text() : "Error desconocido")
+      return
+    }
+
+    const data = await res.json()
+    return data
   }
-
-  if (!res.ok) {
-    console.error("Error guardando:", await res.text() ? await res.text() : "Error desconocido")
-    return
-  }
-
-  const data = await res.json()
-  return data
-}
   // Eliminar
   async function eliminar(id) {
     if (!confirm("¿Eliminar este registro?")) return

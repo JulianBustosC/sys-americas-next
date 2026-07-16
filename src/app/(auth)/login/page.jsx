@@ -35,10 +35,11 @@ function Login({ onLogin }) {
                 token = text; // si no es JSON, el texto ES el token directamente
             }
 
-            if (response.ok && token) {
+            if (response.status === 200 && token) {
                 localStorage.setItem('jwt', token);
                 // Verifica que el token se haya guardado correctamente
-                router.push('/dashboard');
+                console.log("Token guardado en localStorage:", localStorage.getItem('jwt'));
+                router.push('/prueba');
 
 
                 if (onLogin) onLogin(token);
