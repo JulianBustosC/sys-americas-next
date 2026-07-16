@@ -2,9 +2,19 @@ import React from "react";
 
 const DashboardPage = () => {
   return (
-    <main className="min-h-screen bg-slate-50 text-slate-900 p-6">
-      
-    </main>
+    <>
+        <Header />
+        <div style={{ display: 'flex' }}>
+            <h1>Dashboard</h1>
+          
+          <Sidebar/>
+          <main style={{ flex: 1 }}>
+            {children}  
+          </main>
+          
+        </div>
+       </>
+       
   );
 };
 

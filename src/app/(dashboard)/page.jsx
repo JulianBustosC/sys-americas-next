@@ -1,16 +1,17 @@
-import Image from "next/image";
-import { redirect } from "next/navigation";
+"use client";
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
- let isAuth = localStorage.getItem("jwt") !== null; 
- 
+  const router = useRouter();
+  const [isAuth, setIsAuth] = useState(null);
 
-  if (!isAuth) {
+  useEffect(() => {
+    const auth = localStorage.getItem("jwt") !== null;
+    setIsAuth(auth);
+    if (!auth) router.push("/login");
+  }, [router]);
 
-    redirect("/login");
-  } 
-  
-
-  
+  if (isAuth === null) return null; // o un loader
   return <h1>Bienvenido</h1>;
 }
