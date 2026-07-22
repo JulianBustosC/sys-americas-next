@@ -2,7 +2,7 @@
 "use client"
 import { useState, useEffect } from "react"
 import styles from "./TablaModulo.module.css"
-const apiurl = "http://localhost:8080";
+
 
 export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
   const [datos, setDatos] = useState([])
@@ -12,27 +12,33 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
   const [form, setForm] = useState({})
   const [pagina, setPagina] = useState(1)
   const POR_PAGINA = 10
-  const token = localStorage.getItem('jwt') 
-    // Cargar datos del endpoint
-    useEffect(() => {
-   
+  const apiurl = "http://localhost:8080";
+  const [token, setToken] = useState(null)
 
-      fetch(`${apiurl}/${endpoint}`, {
-        headers: {
-          'Authorization': `Bearer ${token}`
+  useEffect(() => {
+    setToken(localStorage.getItem('jwt'));
+  }, [])
+
+  // Cargar datos del endpoint
+  useEffect(() => {
+    if (!token) return
+
+    fetch(`${apiurl}/${endpoint}`, {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+      .then(async r => {
+        const text = await r.text()
+        if (!r.ok) {
+          console.error(`Error ${r.status}:`, text)
+          throw new Error(`Error ${r.status}`)
         }
+        return text ? JSON.parse(text) : null
       })
-        .then(async r => {
-          const text = await r.text()
-          if (!r.ok) {
-            console.error(`Error ${r.status}:`, text)
-            throw new Error(`Error ${r.status}`)
-          }
-          return text ? JSON.parse(text) : null
-        })
-        .then(setDatos)
-        .catch(err => console.error('Error al cargar datos:', err))
-    }, [endpoint])
+      .then(setDatos)
+      .catch(err => console.error('Error al cargar datos:', err))
+  }, [endpoint, token])
 
   // Filtrar por búsqueda
   const filtrados = datos.filter(item =>
@@ -63,31 +69,58 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
   // Guardar (crear o editar)
   async function editar() {
-    const method = editando ? "PUT" : "POST"
-      ? `$http://localhost:8080/${endpoint}/${editando.id}`
-      : `${process.env.NEXT_PUBLIC_API_URL}/${endpoint}`
-    await fetch(url, {
-      method,
-      headers: { "Content-Type": "application/json", 'Authorization': `Bearer ${token}` },
+
+
+
+    const metodo = editando ? "PUT" : "POST"
+
+    const url = editando
+      ? `http://localhost:8080/${endpoint}/${editando.id}`
+      : `http://localhost:8080/${endpoint}/save`
+
+    console.log("URL:" + url);
+
+    const res = await fetch(url, {
+      method: metodo,
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify(form),
-    })
+    });
+    if (res.ok) {
+
+    } else {
+      console.log(`Error ${res.status} token: ${token}`);
+    }
+
+    // El backend no devuelve el objeto, así que recargamos la lista
+    const datos = await fetch(`${apiurl}/${endpoint}`, {
+
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      }
+    }).then(r => r.json())
+
+
+    setDatos(datos)
+    setModalOpen(false)
 
     // Recargar datos
-    fetch(`${apiurl}/${endpoint}`)
-      .then(r => r.json())
-      .then(setDatos)
 
-    setModalOpen(false)
+
   }
 
 
-  async function guardar() {
+  async function guardaxr() {
     // ajusta la key según como lo guardes
     const url = `http://localhost:8080/${endpoint}/save`
 
     const res = await fetch(url, {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         "Authorization": `Bearer ${token}`,
       },
       body: JSON.stringify(form),
@@ -195,12 +228,24 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
                   <label>{campo.label}</label>
                   {campo.type === "select" ? (
                     <select
-                      value={form[campo.key] ?? ""}
-                      onChange={e => setForm({ ...form, [campo.key]: e.target.value })}
+                      value={String(form[campo.key] ?? "")}
+                      onChange={e => {
+                        const opcion = campo.options.find(
+                          op => String(typeof op === "object" ? op.value : op) === e.target.value
+                        )
+                        const valorReal = typeof opcion === "object" ? opcion.value : opcion
+                        setForm({ ...form, [campo.key]: valorReal })
+                      }}
                     >
-                      {campo.options.map(op => (
-                        <option key={op} value={op}>{op}</option>
-                      ))}
+                      {campo.options.map(op => {
+                        const valor = typeof op === "object" ? op.value : op
+                        const etiqueta = typeof op === "object" ? op.label : op
+                        return (
+                          <option key={String(valor)} value={String(valor)}>
+                            {etiqueta}
+                          </option>
+                        )
+                      })}
                     </select>
                   ) : (
                     <input
@@ -215,7 +260,7 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
             </div>
             <div className={styles.modalFooter}>
               <button onClick={() => setModalOpen(false)}>Cancelar</button>
-              <button onClick={guardar} className={styles.btnGuardar}>Guardar</button>
+              <button onClick={editar} className={styles.btnGuardar}>Guardar</button>
             </div>
           </div>
         </div>
