@@ -1,4 +1,5 @@
 // src/components/TablaModulo.jsx
+// Componente genérico para mostrar una tabla con CRUD (crear, leer, actualizar, eliminar)
 "use client"
 import { useState, useEffect } from "react"
 import styles from "./TablaModulo.module.css"
@@ -38,6 +39,7 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
       })
       .then(setDatos)
       .catch(err => console.error('Error al cargar datos:', err))
+      console.log(datos);
   }, [endpoint, token])
 
   // Filtrar por búsqueda

@@ -39,7 +39,7 @@ function Login({ onLogin }) {
                 localStorage.setItem('jwt', token);
                 // Verifica que el token se haya guardado correctamente
                 console.log("Token guardado en localStorage:", localStorage.getItem('jwt'));
-                router.push('/prueba');
+                router.push('/prueba1');
 
 
                 if (onLogin) onLogin(token);

@@ -1,7 +1,54 @@
+import TablaModulo from "../../../components/TablaModulo";
+
 export default function Huespedes() {
     return (
-        <div>
-            <h1>Huespedes</h1>  
-        </div>
+        
+        
+        <TablaModulo
+            titulo="Clientes"
+            endpoint="clientes"
+            columnas={[
+                { key: "id", label: "ID" },
+                { key: "tipoDocumento", label: "Tipo Doc." },
+                { key: "nIdentificacion", label: "N° Identificación" },
+                { key: "nombres", label: "Nombres" },
+                { key: "apellidos", label: "Apellidos" },
+                { key: "fechaNacimiento", label: "Fecha Nacimiento" },
+                { key: "genero", label: "Género" },
+                { key: "ciudadProcedencia", label: "Ciudad" },
+                { key: "nTelefono", label: "Teléfono" },
+                { key: "correo", label: "Correo" },
+                { key: "ultimaVisita", label: "Última Visita" },
+            ]}
+            campos={[
+                {
+                    key: "tipoDocumento", label: "Tipo de Documento", type: "select", options: [
+                        { value: "CC", label: "Cédula de Ciudadanía" },
+                        { value: "CE", label: "Cédula de Extranjería" },
+                        { value: "TI", label: "Tarjeta de Identidad" },
+                        { value: "PA", label: "Pasaporte" },
+                        { value: "NIT", label: "NIT" },
+                    ]
+                },
+                { key: "nIdentificacion", label: "N° Identificación", type: "text" },
+                { key: "nombres", label: "Nombres", type: "text" },
+                { key: "apellidos", label: "Apellidos", type: "text" },
+                { key: "fechaNacimiento", label: "Fecha Nacimiento", type: "date" },
+                { key: "profesion", label: "Profesión", type: "text" },
+                {
+                    key: "genero", label: "Género", type: "select", options: [
+                        { value: "MASCULINO", label: "Masculino" },
+                        { value: "FEMENINO", label: "Femenino" },
+                        { value: "OTRO", label: "Otro" },
+                    ]
+                },
+                { key: "ciudadProcedencia", label: "Ciudad de Procedencia", type: "text" },
+                { key: "nTelefono", label: "Teléfono", type: "text" },
+                { key: "correo", label: "Correo", type: "email" },
+                { key: "ultimaVisita", label: "Última Visita", type: "date" },
+            ]}
+        />
+
+        
     );
 }
