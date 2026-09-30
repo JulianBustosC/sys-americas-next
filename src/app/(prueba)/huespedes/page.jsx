@@ -10,13 +10,13 @@ export default function Huespedes() {
             columnas={[
                 { key: "id", label: "ID" },
                 { key: "tipoDocumento", label: "Tipo Doc." },
-                { key: "nIdentificacion", label: "N° Identificación" },
+                { key: "n_identificacion", label: "N° Identificación" },
                 { key: "nombres", label: "Nombres" },
                 { key: "apellidos", label: "Apellidos" },
                 { key: "fechaNacimiento", label: "Fecha Nacimiento" },
                 { key: "genero", label: "Género" },
                 { key: "ciudadProcedencia", label: "Ciudad" },
-                { key: "nTelefono", label: "Teléfono" },
+                { key: "n_telefono", label: "Teléfono" },
                 { key: "correo", label: "Correo" },
                 { key: "ultimaVisita", label: "Última Visita" },
             ]}
@@ -30,7 +30,7 @@ export default function Huespedes() {
                         { value: "NIT", label: "NIT" },
                     ]
                 },
-                { key: "nIdentificacion", label: "N° Identificación", type: "text" },
+                { key: "n_identificacion", label: "N° Identificación", type: "text" },
                 { key: "nombres", label: "Nombres", type: "text" },
                 { key: "apellidos", label: "Apellidos", type: "text" },
                 { key: "fechaNacimiento", label: "Fecha Nacimiento", type: "date" },
@@ -43,7 +43,7 @@ export default function Huespedes() {
                     ]
                 },
                 { key: "ciudadProcedencia", label: "Ciudad de Procedencia", type: "text" },
-                { key: "nTelefono", label: "Teléfono", type: "text" },
+                { key: "n_telefono", label: "Teléfono", type: "text" },
                 { key: "correo", label: "Correo", type: "email" },
                 { key: "ultimaVisita", label: "Última Visita", type: "date" },
             ]}

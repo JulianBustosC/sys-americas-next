@@ -31,23 +31,33 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
     })
       .then(async r => {
         const text = await r.text()
+        console.log(`Respuesta de ${apiurl}/${endpoint}:`, text);
         if (!r.ok) {
           console.error(`Error ${r.status}:`, text)
           throw new Error(`Error ${r.status}`)
         }
         return text ? JSON.parse(text) : null
       })
+      .then(data => {
+        // Normaliza distintos formatos de respuesta del backend:
+        // - Array plano: [ {...}, {...} ]
+        // - Página de Spring Data: { content: [...], totalPages, ... }
+        if (Array.isArray(data)) return data
+        if (data && Array.isArray(data.content)) return data.content
+        return []
+      })
       .then(setDatos)
       .catch(err => console.error('Error al cargar datos:', err))
-      console.log(datos);
   }, [endpoint, token])
 
-  // Filtrar por búsqueda
-  const filtrados = datos.filter(item =>
-    columnas.some(col =>
-      String(item[col.key] ?? "").toLowerCase().includes(busqueda.toLowerCase())
+  // Filtrar por búsqueda (protegido por si datos aún no es un array)
+  const filtrados = Array.isArray(datos)
+    ? datos.filter(item =>
+      columnas.some(col =>
+        String(item[col.key] ?? "").toLowerCase().includes(busqueda.toLowerCase())
+      )
     )
-  )
+    : []
 
   // Paginación
   const totalPaginas = Math.ceil(filtrados.length / POR_PAGINA)
@@ -55,7 +65,14 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
   // Abrir modal para crear
   function abrirCrear() {
-    const vacio = campos.reduce((acc, c) => ({ ...acc, [c.key]: "" }), {})
+    const vacio = campos.reduce((acc, c) => {
+      if (c.type === "select" && c.options?.length > 0) {
+        const primera = c.options[0]
+        const valorInicial = typeof primera === "object" ? primera.value : primera
+        return { ...acc, [c.key]: valorInicial }
+      }
+      return { ...acc, [c.key]: "" }
+    }, {})
     setForm(vacio)
     setEditando(null)
     setModalOpen(true)
@@ -71,9 +88,9 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
   // Guardar (crear o editar)
   async function editar() {
+   
 
-
-
+    console.log("token: " + String(token));
     const metodo = editando ? "PUT" : "POST"
 
     const url = editando
@@ -81,15 +98,17 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
       : `http://localhost:8080/${endpoint}/save`
 
     console.log("URL:" + url);
-
+    console.log(JSON.stringify(form));
     const res = await fetch(url, {
       method: metodo,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
+
       body: JSON.stringify(form),
     });
+
     if (res.ok) {
 
     } else {
@@ -97,7 +116,7 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
     }
 
     // El backend no devuelve el objeto, así que recargamos la lista
-    const datos = await fetch(`${apiurl}/${endpoint}`, {
+    const recargados = await fetch(`${apiurl}/${endpoint}`, {
 
       headers: {
         'Content-Type': 'application/json',
@@ -105,8 +124,7 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
       }
     }).then(r => r.json())
 
-
-    setDatos(datos)
+    setDatos(Array.isArray(recargados) ? recargados : (recargados?.content ?? []))
     setModalOpen(false)
 
     // Recargar datos
@@ -145,7 +163,10 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
   // Eliminar
   async function eliminar(id) {
     if (!confirm("¿Eliminar este registro?")) return
-    await fetch(`/${process.env.NEXT_PUBLIC_API_URL}/${endpoint}/${id}`, { method: "DELETE" })
+    await fetch(`${apiurl}/${endpoint}/${id}`, {
+      method: "DELETE",
+      headers: { 'Authorization': `Bearer ${token}` }
+    })
     setDatos(datos.filter(d => d.id !== id))
   }
 

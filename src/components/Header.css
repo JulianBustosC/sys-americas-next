@@ -1,7 +1,7 @@
 .header {
     display: flex;
     align-items: center;
- height: 50px;
+    height: 70px;
     width: 100%;
    
     background-color: var(--color-primario);
@@ -39,11 +39,12 @@
 .buscar {
    
     width: 30vw;
-    height: 30px;
+    height: 40px;
     border-radius: 15px;
     padding: 15px;
     border: 0;
     overflow: hidden;
+    color: var(--color-texto);
 
 }
 
@@ -66,7 +67,7 @@
 
 .icon {
     color: black;
-font-size: 27px;
+font-size: 40px;
 }
 
 

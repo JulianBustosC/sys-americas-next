@@ -26,9 +26,10 @@ function Header() {
 
 
       <div className="group_rigth">
-        <a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">
+        {/*}<a href="https://mail.google.com/mail/u/0/?tab=rm&ogbl#inbox">
           <IoIosMail className="icon mail" />
         </a>
+        {*/}
         <button>
           <IoNotificationsCircle className="icon campana" />
         </button>

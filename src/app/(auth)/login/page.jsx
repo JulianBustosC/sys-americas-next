@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from 'react';
-import styles from "./login.module.css";
+import "./login.css";
 import { useRouter } from "next/navigation";
 const API_URL = 'http://localhost:8080/auth/login';
 
