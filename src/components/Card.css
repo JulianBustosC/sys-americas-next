@@ -1,28 +1,52 @@
-@import url('../App.css');
+
 
 .card {
-    display: flex;
-    background: #fff;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 200px;
-    min-height: 60px;
-    border-radius: 5px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    padding: 10px;
 
- transition: all 0.3s ease-in-out;
     
-   
+
+   display: grid;
+    grid-template-columns: 1fr 3fr;
+    align-items: center;
+    gap: 16px;
+    height: 130px;
+    width: 100%;
+    min-height: 88px;
+    padding: 16px 20px;
+
+    border: 1px solid rgb(var(--tone) / 0.07);
+    border-radius: 10px;
+    box-sizing: border-box;
+    border-radius: 10px;
+
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+    background: rgb(var(--tone) / 0.05); 
+    .icon_container {
+        
+        background: rgb(var(--tone) / 0.09); 
+        .icon {
+            color: rgb(var(--tone)); 
+        }
+    }
+    span {
+        align-self: flex-start;
+        text-align: left;
+    }
+    strong {
+        align-self: flex-start;
+        text-align: left;
+        font-size: 14pt;
+    }
+    
 }
 
-icon_container {}
+
 
 
 .card:hover{
     cursor: pointer;
     color: #fff;
-    background: #28a7f5;
+    background-color: rgb(var(--tone) /0.2);
 .card-icon{
     color: #fff;
 }
@@ -30,7 +54,7 @@ icon_container {}
 }
 
 .selected {
-    background: #28a7f5;
+    background-color: rgb(var(--tone) / 0.1);
 }
 
 .content {
@@ -43,13 +67,14 @@ icon_container {}
 strong {
 
     font-size: 1.4vw;
+    align-self: flex-start;
 
 }
 
 span {
     font-size: 1vw;
 
-    align-self: flex-end;
+    align-self: flex-estart;
     text-align: left;
 }
 
@@ -66,4 +91,13 @@ strong,
 span {
     user-select: none;
     
+}
+.icon_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #DCEEFF;
 }

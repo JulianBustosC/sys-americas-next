@@ -4,6 +4,7 @@ import React from 'react';
 import "./Sidebar.css";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineHome } from "react-icons/ai";
+import { MdMeetingRoom } from "react-icons/md";
 
 // src/components/Sidebar.jsx
 
@@ -20,7 +21,7 @@ const Sidebar = () => {
     { href: "/huespedes",    label: "Huespedes",    icon: null },
     { href: "/reservas",     label: "Reservas",     icon: null },
     { href: "/tienda",       label: "Tienda",       icon: null },
-    { href: "/habitaciones", label: "Habitaciones", icon: null },
+    { href: "/habitaciones", label: "Habitaciones", icon: <MdMeetingRoom className="icon" /> },
   ];
 
   return (

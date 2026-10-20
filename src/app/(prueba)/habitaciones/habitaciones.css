@@ -1,0 +1,57 @@
+.page-header {
+    
+    
+    width: 100%;
+    height: 100px;
+    align-items: left;
+    
+    margin-bottom: 1rem;
+    
+    
+
+    .page-title {
+
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 30px;
+        margin-bottom: 1rem;
+        padding: 0  50px;
+        .icon {
+                font-size: 90px;
+                
+                color: var(--color-primario);
+               
+                
+            }
+
+        .title {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            align-items: flex-start;
+            text-align: left;
+
+            
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 500;
+            color: var(--color-primario);
+            text-align: left;
+            width: 100%;
+            
+        }
+
+        h2 {
+            
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--color-secundario);
+            text-align: left;
+            width: 100%;
+        }
+    }
+}
+

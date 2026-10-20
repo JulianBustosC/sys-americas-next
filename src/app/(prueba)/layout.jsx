@@ -9,7 +9,7 @@ import Sidebar from "../../components/Sidebar";
 export default function PruebaLayout({ children }) {
   return (
        <>
-        <Header />
+       
         <div style={{ display: 'flex' }}>
             
           

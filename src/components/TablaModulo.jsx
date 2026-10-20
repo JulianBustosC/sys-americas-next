@@ -88,9 +88,9 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
   // Guardar (crear o editar)
   async function editar() {
-   
 
-    console.log("token: " + String(token));
+
+    //console.log("token: " + String(token));
     const metodo = editando ? "PUT" : "POST"
 
     const url = editando
@@ -175,22 +175,23 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
 
       {/* Encabezado */}
       <div className={styles.header}>
-        <div>
+        {/**}<div>
           <h2 className={styles.titulo}>{titulo}</h2>
           <p className={styles.subtitulo}>{filtrados.length} registros</p>
-        </div>
+        </div>{**/}
+        <input
+          className={styles.buscador}
+          placeholder={`Buscar en ${titulo.toLowerCase()}...`}
+          value={busqueda}
+          onChange={e => { setBusqueda(e.target.value); setPagina(1) }}
+        />
         <button className={styles.btnAgregar} onClick={abrirCrear}>
           + Agregar {titulo.slice(0, -1)}
         </button>
       </div>
 
       {/* Buscador */}
-      <input
-        className={styles.buscador}
-        placeholder={`Buscar en ${titulo.toLowerCase()}...`}
-        value={busqueda}
-        onChange={e => { setBusqueda(e.target.value); setPagina(1) }}
-      />
+
 
       {/* Tabla */}
       <div className={styles.tablaWrapper}>
@@ -210,8 +211,8 @@ export default function TablaModulo({ titulo, endpoint, columnas, campos }) {
                 {columnas.map(col => (
                   <td key={col.key}>
                     {typeof item[col.key] === 'boolean' ? (
-                      <span style={{ color: item[col.key] ? '#16a34a' : '#dc2626' }}>
-                        {item[col.key] ? '● Sí' : '● No'}
+                      <span style={{ '--color-boolean': item[col.key] ? '#16a34a' : '#dc2626' }}>
+                        {item[col.key] ? '● Disponible' : '● Ocupada'}
                       </span>
                     ) : (
                       item[col.key]

@@ -14,12 +14,13 @@ function Header() {
         </div>
 
         <div className="buscar_container">
+          <IoMdSearch className="icon lupa" id="buscar-item" />
           <input
             type="text"
             placeholder="Buscar..."
             className="buscar" />
 
-          <IoMdSearch className="icon lupa" id="buscar-item" />
+          
 
         </div>
       </div>

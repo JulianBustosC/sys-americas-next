@@ -1,4 +1,5 @@
 .header {
+    position: fixed;
     display: flex;
     align-items: center;
     height: 70px;
@@ -8,14 +9,17 @@
 
     padding-left: 10px;
     padding-right: 10px;
-    
+    color: var(--texto-terciario);
     justify-content: space-between;
     a{
         text-decoration: none;
-        background-color: transparent;
+        background-color: var(--color-primario);
          font-size: 27px;
-         color: var(--color-texto);
+         color: var(--texto-terciario);
     }
+
+   
+
 }
 
 .group_left {
@@ -44,24 +48,40 @@
     padding: 15px;
     border: 0;
     overflow: hidden;
-    color: var(--color-texto);
+    
 
 }
 
 .buscar_container {
 
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    padding: 0px 5px 0px 10px;
-    border: #668ffe 2px solid;
+    
+  --buscador-bg: rgba(40, 90, 140, 0.45);
+  --buscador-borde: rgba(120, 170, 220, 0.45);
+  --buscador-texto: #ffffff;
+  --buscador-placeholder: rgba(220, 235, 250, 0.75);
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 560px;
+  padding: 12px 18px;
+  background: var(--buscador-bg);
+  border: 1px solid var(--buscador-borde);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
 .lupa {
 
-    border-left: #668ffe 2px solid;
-    height: 100%;
-    padding-left: 3px;
+    width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--buscador-texto);
     
 }
 
@@ -79,4 +99,61 @@ font-size: 40px;
 button{
     border: 0;
     background-color: transparent;
+}
+
+.buscador {
+  --buscador-bg: rgba(40, 90, 140, 0.45);
+  --buscador-borde: rgba(120, 170, 220, 0.45);
+  --buscador-texto: #ffffff;
+  --buscador-placeholder: rgba(220, 235, 250, 0.75);
+
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  max-width: 560px;
+  padding: 12px 18px;
+  background: var(--buscador-bg);
+  border: 1px solid var(--buscador-borde);
+  border-radius: 12px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 4px 14px rgba(0, 0, 0, 0.18);
+  transition: border-color 0.2s, box-shadow 0.2s;
+  input {
+    flex: 1;
+    min-width: 0;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--buscador-texto);
+    font-size: 1rem;
+  }
+}
+
+.buscar_container:focus-within {
+  border-color: rgba(160, 205, 255, 0.9);
+  box-shadow: 0 0 0 3px rgba(100, 160, 230, 0.25);
+}
+
+.buscador__icono {
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  color: var(--buscador-texto);
+}
+
+.buscar {
+  flex: 1;
+  min-width: 0;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--buscador-texto);
+  font-size: 1rem;
+}
+
+.buscar_container__input::placeholder {
+  color: white;
 }
